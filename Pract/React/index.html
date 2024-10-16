@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- так нельзя) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <!-- Стандартная отрисовка в HTML -->
+
+    <!-- <div class="game">
+        <div class="game-info">
+            Ход: <span class="symbol--x">X</span>
+        </div>
+        <div class="game-field">
+            <button class="cell cell--win"><span class="symbol--x">X</span></button>
+            <button class="cell"><span class="symbol symbol--o">O</span></button>
+            <button class="cell"></button>
+            <button class="cell cell--win"><span class="symbol symbol--x">X</span></button>
+            <button class="cell"></button>
+            <button class="cell"><span class="symbol symbol--o">O</span></button>
+            <button class="cell cell--win"><span class="symbol--x">X</span></button>
+            <button class="cell"><span class="symbol symbol--o">O</span></button>
+            <button class="cell"></button>
+        </div>
+    </div> -->
+
+    <!-- так нельзя) -->
+    <script type="text/babel">
+
+        const SYMBOL_X = 'X';
+        const SYMBOL_O = 'O';
+
+        function App() {
+            // return <div>hello world</div>;
+
+            const cells = [null, null, null, SYMBOL_O, SYMBOL_X, SYMBOL_O, null, null, null];
+
+            const currentStep = SYMBOL_O;
+
+            function test() {
+                return ("symbol--x");
+            }
+            const getSimbolClassName = (symbol) =>{
+                if (symbol === SYMBOL_O) return 'symbol--o';
+                if (symbol === SYMBOL_X) return 'symbol--x';
+                return '';
+            }
+
+            // Возвращаем без использования функции, каждую строчку отрисовываем
+
+            // return (
+            //     // будет работать и class, но в js слово class зарезервировано с в jsx пишут className, хотя и так будет работать
+            //     <div className="game">
+            //         <div className="game-info">
+            //             Ход: <span className={`symbol ${getSimbolClassName(currentStep)}`}>{currentStep}</span>
+            //         </div>
+            //         <div className="game-field">
+            //             <button className="cell cell--win"><span className="symbol--x">X</span></button>
+            //             <button className="cell"><span className={`${test()}`}>O</span></button>
+            //             <button className="cell"></button>
+            //             <button className="cell cell--win"><span className="symbol symbol--x">X</span></button>
+            //             <button className="cell"></button>
+            //             <button className="cell"><span className="symbol symbol--o">O</span></button>
+            //             <button className="cell cell--win"><span className="symbol--x">X</span></button>
+            //             <button className="cell"><span className="symbol symbol--o">O</span></button>
+            //             <button className="cell"></button>
+            //         </div>    
+            //     </div>
+            // )
+
+            const renderSymbol = (symbol) => (<span className={`symbol ${getSimbolClassName(symbol)}`}>{symbol}</span>)
+            
+
+            return (
+                // будет работать и class, но в js слово class зарезервировано с в jsx пишут className, хотя и так будет работать
+                <div className="game">
+                    <div className="game-info">
+                        Ход: {renderSymbol(currentStep)}
+                    </div>
+                    <div className="game-field">
+                    {
+                        //     cells.map(symbol => {
+                        //     return <button className="cell">{symbol ? renderSymbol(symbol) : null}</button>
+                        // })
+
+
+                        // убираем ошибку с помощью index ОШИБКА: react.development.js:199 Warning: Each child in a list should have a unique "key" prop.
+
+                        cells.map((symbol, index) => {
+                        return <button key = {index} className="cell">{symbol ? renderSymbol(symbol) : null}</button>
+                        })
+                    }
+
+                    </div>    
+                </div>
+            )
+        }
+
+        let root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />)
+
+    </script>
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 150px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid black;
+            padding: 1px;
+
+        }
+
+        .game-info {
+            margin-bottom: 10px;
+        }
+
+        .game-field {
+            display: grid;
+            grid-template-columns: repeat(3, 30px);
+            grid-template-rows: repeat(3, 30px);
+        }
+
+        .symbol--x {
+            background-color: red;
+        }
+
+        .symbol--o {
+            background-color: green;
+            color: aquamarine;
+        }
+
+    </style>
+
+</body>
+
+</html>
