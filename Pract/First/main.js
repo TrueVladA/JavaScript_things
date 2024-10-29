@@ -65,7 +65,7 @@ for(let i of card){
 console.log(found ? 'found' : 'not found');
 
 console.log("------////2\\\\-------");
-//--------------------------------------------------------------------- 
+//классы ---------------------------------------------------------------------  1
 printDay();
 greet('hi');
 greet2();
@@ -115,7 +115,7 @@ function generateRandomNumber(n, m){
 }
 
 console.log("------////3\\\\-------");
-//--------------------------------------------------------------------- 
+//---------------------------------------------------------------------  2
 let me = {
     name: 'Vasya',
     surname: 'ivanov', 
@@ -205,7 +205,7 @@ for(let[key, values] of enteries){
 }
 
 console.log("------////4\\\\-------");
-//---------------------------------------------------------------------  
+//---------------------------------------------------------------------  3
 console.log( document.documentElement);
 console.log( document.documentElement.children);
 
@@ -261,3 +261,115 @@ console.log( document.documentElement.children);
 
 
 
+//--------------------------------------------------------------------- Работа с массивами
+console.log("------////Работа с массивами\\\\-------");
+
+const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+//метод удаляет из массива 1ый элемент и сразу его возвращает
+const first = number.shift();
+console.log(first); // 0
+console.log(number); // 1,2,3 ...
+
+//метод удаляет из массива последний элемент и сразу его возвращает
+const last = number.pop();
+console.log(last); // 9
+console.log(number); // 1,2,3 ... 7, 8
+
+const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const middle = numbers.splice(4,2);
+console.log(middle); // 4,5
+console.log(numbers); // 0, 1, 2, 3 ... 6, 8
+
+numbers.splice(100, 100); // [], исходный массив не изменится
+numbers.splice(6); // [8, 9], вернутся и будут убраны из массива
+console.log(numbers); // 0, 1, 2, 3, 6, 7
+
+numbers.splice(4, 0, 4, 5);
+console.log(numbers); // 0, 1, 2, 3, 4, 5, 6, 7
+
+
+//--------------------------------------------------------------------- 4
+const numbers2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const numbersReversed = numbers2.reverse();
+console.log(numbersReversed); // зеркалит
+
+numbersReversed.sort(); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+numbersReversed.push(10, 11);
+numbersReversed.sort(); // [0, 1, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9];
+
+numbersReversed.sort((a, b) => a - b); // 0, 1, 2..11
+numbersReversed.sort((a, b) => b - a); // 11, 10, 9..
+
+numbers2.slice(); // полная копия массива
+numbers2.slice(3); // копия массива от 3 эл-та
+numbers2.slice(-5); // копия 5ти последних элементов
+numbers2.slice(3, 5); // копия с 3его по 5ый
+numbers2.slice(2,2); // копия с 3его по пред-пред-последний
+
+//--------------------------------------------------------------------- 5
+
+const students = [
+    {name: 'Василий', age: '18'},
+    {name: 'Геннадий', age: '23'},
+    {name: 'Андрей', age: '17'},
+    {name: 'Тимофей', age: '29'},
+    {name: 'Иннокентий', age: '17'},
+];
+
+students.includes({name: 'Василий', age: '18'}); // false т.к. это не тот Василий
+
+students.find(student => student.name === 'Василий' && student.age === 18); // вернет сам объект
+students.findIndex(student => student.name === 'Василий' && student.age === 18); // вернет индекс объекта
+
+students.every(student => student.age >= 18); // true 
+students.some(student => student.age >19); // true
+
+students.map(student => student.name); // массив только имен
+
+students.forEach((student, index)=>{
+    console.log(`студент№ ${index+1} имя ${student.name} и возраст ${student.age}`)
+})
+
+
+
+//--------------------------------------------------------------------- Работа с массивами и строками 2
+console.log("------////Работа с массивами и строками 2\\\\-------");
+
+    const str = `
+    Тиунов Тимофей Сергеевич, системный архитектор, 
+    Иванов Иван Иванович, frontend-разработчик
+    `;
+
+function parseEmployeesData(dataString){
+    return dataString
+    // разбиваем текст по строкам
+    .split('\n')
+    // убираем пустые строки с пробелами
+    .filter(line=>line.trim().length > 0)
+    // преобразуем каждую строку
+    .map(line => {
+        // через запятую выписаны ФИО и должность человека
+            const [fullName, occupation] = line
+            // разбиваем строку по запятой
+                .split(',')
+                // убираем лишние пробелы
+                .map(str => str.trim())
+                // убираем пустые строки
+                .filter(text => text.length>0);
+                // далее нам нужно разбить ФИО на составляющие
+            const [surname, name, middleName] = fullName
+            // ФИО в тесте написанно через пробул
+                .split(' ')
+                // убираем лишнее
+                .filter(text=>text.length>0);
+                // возвращаем объект
+                return{
+                    surname, name, middleName, occupation
+                };
+        })
+}
+
+console.log(parseEmployeesData(str));
