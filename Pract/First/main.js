@@ -378,3 +378,37 @@ console.log(parseEmployeesData(str));
 
 //--------------------------------------------------------------------- Работа с запросами
 console.log("------////Работа с запросами\\\\-------");
+
+
+//!!!!!!!!!!!!!!!!!!!!!!! for F12 console !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// fetch('https://gorest.co.in/public/v2/users');
+
+// // создаем пользователя
+// fetch('https://gorest.co.in/public/v2/users', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//         "name":"Trunov Tr Tr", 
+//         "gender":"male", 
+//         "email":"tenali.ramakrishna@15ce.com", 
+//         "status":"active"}     
+//     ),
+//     header: {
+//         Authorization: 'Bearer 191d939aa2fe8f6fc813f6873bfd92c6825ebefaae57b62098e86cfc271fb9a3',
+//         'Content-type': 'application/json'
+//     }
+// });
+
+
+// async function f(){
+//     const resp = await fetch('https://gorest.co.in/public/v2/users');
+//     const data = await resp.json();
+
+//     console.log(data);
+// };
+
+// // не ждем ответ самой функции, но внутри await выаполнится 
+// f();
+// // ждем ответ
+// await f();
+
