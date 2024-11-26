@@ -84,7 +84,7 @@
         return item;
     }
 
-    async function createTodoApp(container, title = 'Список дел') {
+    async function createTodoApp(container, title, owner) {
         // let container = document.getElementById('todo-app');
 
         const todoAppTitle = createAppTitle(title);
@@ -120,7 +120,8 @@
         // todoList.append(todoItems[0].item);
         // todoList.append(todoItems[1].item);
 
-        const response = await fetch('http://localhost:3000/api/todos');
+        // отправляем запрос на список наших дел
+        const response = await fetch(`http://localhost:3000/api/todos?owner=${owner}`);
         const todoItemList = await response.json();
 
         todoItemList.forEach(todoItem => {
@@ -144,7 +145,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: todoItemForm.input.value,
-                    owner: 'Mock'
+                    owner
                 })
             });
 
