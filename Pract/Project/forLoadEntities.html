@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        async function loadToDoItem(){
+            const resp = await fetch('http://localhost:3000/api/todos');
+            const data = await resp.json();
+            console.log(data);
+        }
+
+        async function createToDoItem() {
+            fetch('http://localhost:3000/api/todos', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: 'Метнись кабанчиком',
+                    owner: 'Вася'
+                })
+              });
+           }        
+
+           loadToDoItem();
+           createToDoItem();
+    </script>
+
+</head>
+
+<body>
+    
+</body>
+</html>
